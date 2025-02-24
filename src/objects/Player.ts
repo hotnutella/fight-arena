@@ -34,24 +34,22 @@ export class Player extends Phaser.Physics.Arcade.Sprite
         });
     }
 
-    update ()
-    {
-        const speed = 200;
+    update() {
+        const speed = 800;
+        const jumpPower = 4000;
 
         if (this.cursors.left?.isDown) {
             this.setVelocityX(-speed);
+            this.setFlipX(false);
         } else if (this.cursors.right?.isDown) {
             this.setVelocityX(speed);
+            this.setFlipX(true);
         } else {
             this.setVelocityX(0);
         }
 
-        if (this.cursors.up?.isDown) {
-            this.setVelocityY(-speed);
-        } else if (this.cursors.down?.isDown) {
-            this.setVelocityY(speed);
-        } else {
-            this.setVelocityY(0);
+        if (this.cursors.up?.isDown && this.body?.blocked.down) {
+            this.setVelocityY(-jumpPower);
         }
     }
 }

@@ -1,5 +1,6 @@
 import { Scene } from 'phaser';
 import { Player } from '../objects/Player';
+import { Ground } from '../objects/Ground';
 
 export class Game extends Scene
 {
@@ -30,10 +31,7 @@ export class Game extends Scene
             .setOrigin(0, 0)
             .setScrollFactor(0);
 
-        this.ground = this.physics.add.staticGroup();
-        for (let x = 0; x < worldWidth; x += 48) {
-            this.ground.create(x, 744, 'terrain', 2).setOrigin(0, 0.5);
-        }
+        this.ground = new Ground(this, worldWidth);
 
         this.player.setDepth(10);
 

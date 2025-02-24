@@ -26,8 +26,6 @@
 
 ## 🛠️ Technologies Used
 
-In this game, you control a fighter, move around the arena, and engage in battles. Future updates will include:
-
 - 🎮 Phaser 3 – Game engine
 - ⚡ TypeScript – For structured code
 - 🔥 Vite – Fast build system

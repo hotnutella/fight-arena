@@ -6,7 +6,8 @@ export class Game extends Scene
     camera: Phaser.Cameras.Scene2D.Camera;
     background: Phaser.GameObjects.Image;
     msg_text : Phaser.GameObjects.Text;
-    player: Player
+    ground: Phaser.Physics.Arcade.StaticGroup;
+    player: Player;
 
     constructor ()
     {
@@ -21,19 +22,17 @@ export class Game extends Scene
         this.background = this.add.image(512, 384, 'background');
         this.background.setAlpha(0.5);
 
-        // this.msg_text = this.add.text(512, 384, 'Make something fun!\nand share it with us:\nsupport@phaser.io', {
-        //     fontFamily: 'Arial Black', fontSize: 38, color: '#ffffff',
-        //     stroke: '#000000', strokeThickness: 8,
-        //     align: 'center'
-        // });
-        // this.msg_text.setOrigin(0.5);
+        this.ground = this.physics.add.staticGroup();
+        for (let x = 0; x < this.scale.width; x += 48) {
+            this.ground.create(x, 744, 'terrain', 2);
+        }
 
         this.player = new Player(this, 512, 384);
 
+        this.physics.add.collider(this.player, this.ground);
+
         this.input.once('pointerdown', () => {
-
             this.scene.start('GameOver');
-
         });
     }
 

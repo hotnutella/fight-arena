@@ -17,6 +17,10 @@ export class Boot extends Scene
             frameWidth: 32,
             frameHeight: 32
         });
+        this.load.spritesheet('terrain', 'assets/terrain.png', {
+            frameWidth: 48,
+            frameHeight: 48
+        });
     }
 
     create ()

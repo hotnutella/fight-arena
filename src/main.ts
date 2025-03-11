@@ -3,6 +3,7 @@ import { Game as MainGame } from './scenes/Game';
 import { GameOver } from './scenes/GameOver';
 import { MainMenu } from './scenes/MainMenu';
 import { Preloader } from './scenes/Preloader';
+import { SpinePlugin } from '@esotericsoftware/spine-phaser';
 
 import { Game, Types } from "phaser";
 
@@ -31,6 +32,11 @@ const config: Types.Core.GameConfig = {
             gravity: { x: 0, y: 30000 },
             debug: false,
         }
+    },
+    plugins: {
+        scene: [
+            { key: 'SpinePlugin', plugin: SpinePlugin, mapping: 'spine' }
+        ]
     }
 };
 

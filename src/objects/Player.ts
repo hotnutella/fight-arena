@@ -1,13 +1,13 @@
-export class Player extends Phaser.Physics.Arcade.Sprite
+export class Player extends Phaser.Physics.Arcade.Image
 {
     cursors: Phaser.Types.Input.Keyboard.CursorKeys;
+    spine: any;
 
     constructor (scene: Phaser.Scene, x: number, y: number)
     {
-        super(scene, x, y, 'cat');
+        super(scene, x, y, '');
 
         this.setOrigin(0.5, 0.5);
-        this.scale = 2;
 
         this.scene.add.existing(this);
         this.scene.physics.add.existing(this);
@@ -21,35 +21,44 @@ export class Player extends Phaser.Physics.Arcade.Sprite
         this.setCollideWorldBounds(true);
 
         this.createAnimations();
-        this.play('idle');
+        this.spine.animationState.setAnimation(0, 'idle', true);
     }
 
     createAnimations ()
     {
-        this.scene.anims.create({
-            key: 'idle',
-            frames: this.scene.anims.generateFrameNumbers('cat', { start: 0, end: 3 }),
-            frameRate: 5,
-            repeat: -1
-        });
+        this.spine = this.scene.add.spine(this.x, this.y, 'character-json', 'character-atlas');
+        this.spine.setScale(0.5);
+        this.spine.setDepth(10);
+        this.spine.skeleton.updateWorldTransform();
+
+        console.log(this.spine);
+        const spineWidth = this.spine.displayWidth;
+        const spineHeight = this.spine.displayHeight;
+
+        this.body?.setSize(spineWidth, spineHeight);
+        this.body?.setOffset(-spineWidth / 2, -spineHeight * 0.6);
     }
 
     update() {
         const speed = 800;
         const jumpPower = 4000;
-
+    
         if (this.cursors.left?.isDown) {
             this.setVelocityX(-speed);
-            this.setFlipX(false);
+            this.spine.scaleX = -0.5; // Флип персонажа
         } else if (this.cursors.right?.isDown) {
             this.setVelocityX(speed);
-            this.setFlipX(true);
+            this.spine.scaleX = 0.5; 
         } else {
             this.setVelocityX(0);
         }
-
+    
         if (this.cursors.up?.isDown && this.body?.blocked.down) {
             this.setVelocityY(-jumpPower);
         }
+    
+        this.spine.x = this.x;
+        this.spine.y = this.y;
     }
+    
 }

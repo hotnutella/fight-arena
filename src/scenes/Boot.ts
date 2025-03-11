@@ -21,6 +21,10 @@ export class Boot extends Scene
             frameWidth: 48,
             frameHeight: 48
         });
+
+        this.load.spineAtlas('character-atlas', 'assets/animations/character/skeleton.atlas');
+        this.load.spineJson('character-json', 'assets/animations/character/skeleton.json');
+        // this.load.spine('character', 'assets/animations/character/skeleton.atlas', 'assets/animations/character/skeleton.png');
     }
 
     create ()

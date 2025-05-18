@@ -27,7 +27,7 @@ export class Player extends Phaser.Physics.Arcade.Image
     createAnimations ()
     {
         this.spine = this.scene.add.spine(this.x, this.y, 'character-json', 'character-atlas');
-        this.spine.setScale(0.5);
+        this.spine.setScale(0.2); // Changed from 0.5 to 0.2 (60% smaller)
         this.spine.setDepth(10);
         this.spine.skeleton.updateWorldTransform();
 
@@ -45,10 +45,10 @@ export class Player extends Phaser.Physics.Arcade.Image
     
         if (this.cursors.left?.isDown) {
             this.setVelocityX(-speed);
-            this.spine.scaleX = -0.5; // Флип персонажа
+            this.spine.scaleX = -0.2; // Updated to match new scale
         } else if (this.cursors.right?.isDown) {
             this.setVelocityX(speed);
-            this.spine.scaleX = 0.5; 
+            this.spine.scaleX = 0.2; // Updated to match new scale
         } else {
             this.setVelocityX(0);
         }
@@ -60,5 +60,4 @@ export class Player extends Phaser.Physics.Arcade.Image
         this.spine.x = this.x;
         this.spine.y = this.y;
     }
-    
 }
